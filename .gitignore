@@ -2,10 +2,20 @@
 .generated-cordis.patch.yml
 .dsh-modules/
 
+# local secrets and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
 # python
 __pycache__/
 *.pyc
 *.pyo
+*.log
 
 # runtime model outputs (keep the folder, ignore contents)
 models/*

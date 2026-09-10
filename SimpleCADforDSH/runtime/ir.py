@@ -1,4 +1,4 @@
-"""EasyCAD engineering IR v0.1 — constraint language, not a mesh dump.
+"""SimpleCADforDSH engineering IR v0.1 — constraint language, not a mesh dump.
 
 This is a first demo of an intermediate representation between
 natural-language intent and CAD-as-Code (build123d). It is not a

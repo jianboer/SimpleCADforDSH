@@ -1,4 +1,4 @@
-"""EasyCAD-owned image helpers: CAD shape vs reference-image similarity.
+"""SimpleCADforDSH-owned image helpers: CAD shape vs reference-image similarity.
 
 Approach (v1): silhouette IoU. The generated B-rep is tessellated and projected
 orthographically into standard views (front / right / top); each projection is

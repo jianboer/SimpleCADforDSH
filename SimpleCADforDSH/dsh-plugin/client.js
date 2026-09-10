@@ -1,21 +1,22 @@
 window.__ModuleLoader__.load({
-  id: 'easycad',
+  id: 'simplecadfordsh',
   factory: (require) => {
     const module = { exports: {} }
     const React = require('react')
     const e = React.createElement
 
     const TOOLS = [
-      'easycad_brief', 'easycad_gen', 'easycad_inspect', 'easycad_qa',
-      'easycad_measure', 'easycad_export', 'easycad_preview',
-      'easycad_params', 'easycad_apply',
-      'easycad_snapshot', 'easycad_similarity', 'easycad_advice',
+      'simplecadfordsh_brief', 'simplecadfordsh_gen', 'simplecadfordsh_inspect', 'simplecadfordsh_qa',
+      'simplecadfordsh_measure', 'simplecadfordsh_export', 'simplecadfordsh_preview',
+      'simplecadfordsh_params', 'simplecadfordsh_apply',
+      'simplecadfordsh_snapshot', 'simplecadfordsh_similarity', 'simplecadfordsh_advice',
     ]
+    const AUTO_OPEN_TOOLS = new Set(['simplecadfordsh_gen', 'simplecadfordsh_apply', 'simplecadfordsh_preview'])
 
     // ---- persisted layout state ----
-    const PANE_KEY = 'easycad:pane-width'
-    const TREE_KEY = 'easycad:tree-width'
-    const TREE_OPEN_KEY = 'easycad:tree-open'
+    const PANE_KEY = 'simplecadfordsh:pane-width'
+    const TREE_KEY = 'simplecadfordsh:tree-width'
+    const TREE_OPEN_KEY = 'simplecadfordsh:tree-open'
     const DEFAULT_PANE = 900
     const MIN_PANE = 520
     const MAX_PANE = 1280
@@ -41,7 +42,7 @@ window.__ModuleLoader__.load({
     }
 
     function applyPaneWidth(width) {
-      document.documentElement.style.setProperty('--easycad-w', `${width}px`)
+      document.documentElement.style.setProperty('--simplecadfordsh-w', `${width}px`)
     }
 
     function getAppFrame() {
@@ -50,17 +51,17 @@ window.__ModuleLoader__.load({
     }
 
     function setPaneLayoutOpen(open) {
-      document.body.classList.toggle('easycad-open', open)
+      document.body.classList.toggle('simplecadfordsh-open', open)
       const frame = getAppFrame()
-      if (frame) frame.classList.toggle('easycad-frame-open', open)
+      if (frame) frame.classList.toggle('simplecadfordsh-frame-open', open)
     }
 
     applyPaneWidth(readNumber(PANE_KEY, DEFAULT_PANE, MIN_PANE, MAX_PANE))
 
     const css = [
-      ':root{--easycad-w:900px}',
-      '.easycad-frame-open>div:nth-child(2),.easycad-frame-open>div:nth-child(3){padding-right:var(--easycad-w);transition:padding-right .12s ease;box-sizing:border-box}',
-      '.ec-overlay{position:absolute;top:0;right:0;bottom:0;width:var(--easycad-w);display:flex;flex-direction:column;background:#fff;border-left:1px solid #e6e8eb;pointer-events:auto;box-shadow:-10px 0 24px rgb(16 24 40 / 8%)}',
+      ':root{--simplecadfordsh-w:900px}',
+      '.simplecadfordsh-frame-open>div:nth-child(2),.simplecadfordsh-frame-open>div:nth-child(3){padding-right:var(--simplecadfordsh-w);transition:padding-right .12s ease;box-sizing:border-box}',
+      '.ec-overlay{position:absolute;top:0;right:0;bottom:0;width:var(--simplecadfordsh-w);display:flex;flex-direction:column;background:#fff;border-left:1px solid #e6e8eb;pointer-events:auto;box-shadow:-10px 0 24px rgb(16 24 40 / 8%)}',
       '.ec-overlay[hidden]{display:none}',
       '.ec-resize{position:absolute;left:-3px;top:0;bottom:0;width:6px;cursor:col-resize;touch-action:none;z-index:2}',
       '.ec-resize::after{content:"";position:absolute;left:2px;top:0;bottom:0;width:2px;background:transparent;transition:background .12s ease}',
@@ -116,12 +117,12 @@ window.__ModuleLoader__.load({
       '.ec-ctx-item:hover{background:#f4f5f7}',
       '.ec-ctx-item.ec-ctx-danger{color:#c62828}',
       '.ec-ctx-item.ec-ctx-danger:hover{background:#fdecea}',
-      'body.easycad-resizing{user-select:none;cursor:col-resize}',
+      'body.simplecadfordsh-resizing{user-select:none;cursor:col-resize}',
     ].join('')
 
-    if (typeof document !== 'undefined' && !document.querySelector('style[data-plugin-css="easycad"]')) {
+    if (typeof document !== 'undefined' && !document.querySelector('style[data-plugin-css="simplecadfordsh"]')) {
       const tag = document.createElement('style')
-      tag.dataset.pluginCss = 'easycad'
+      tag.dataset.pluginCss = 'simplecadfordsh'
       tag.textContent = css
       document.head.appendChild(tag)
     }
@@ -142,7 +143,7 @@ window.__ModuleLoader__.load({
 
     function openPart(name) {
       if (!name) return
-      window.dispatchEvent(new CustomEvent('easycad:open', { detail: { name } }))
+      window.dispatchEvent(new CustomEvent('simplecadfordsh:open', { detail: { name } }))
     }
 
     async function fetchJson(url) {
@@ -154,12 +155,12 @@ window.__ModuleLoader__.load({
     }
 
     async function fetchLatestName() {
-      const latest = await fetchJson('/easycad/latest')
+      const latest = await fetchJson('/simplecadfordsh/latest')
       return latest && latest.name ? String(latest.name) : null
     }
 
     async function fetchPartsRows() {
-      const body = await fetchJson('/easycad/parts')
+      const body = await fetchJson('/simplecadfordsh/parts')
       const names = Array.isArray(body && body.names) ? body.names : []
       let parts = Array.isArray(body && body.parts) ? body.parts : []
       // Older server routes return only "names"; synthesize metadata-less rows so the list still renders.
@@ -170,12 +171,12 @@ window.__ModuleLoader__.load({
     }
 
     async function fetchFileTree() {
-      const body = await fetchJson('/easycad/tree')
+      const body = await fetchJson('/simplecadfordsh/tree')
       if (body && Array.isArray(body.tree) && body.tree.length) return body.tree
-      // Fallback for a server without /easycad/tree: group the flat part list under
+      // Fallback for a server without /simplecadfordsh/tree: group the flat part list under
       // the models directory, shown by its minimal (leaf) name. The absolute path is
       // recorded by the backend; the UI renders only the leaf foldername.
-      const partsBody = await fetchJson('/easycad/parts')
+      const partsBody = await fetchJson('/simplecadfordsh/parts')
       const names = Array.isArray(partsBody && partsBody.names) ? partsBody.names : []
       if (!names.length) return []
       return [{
@@ -187,7 +188,7 @@ window.__ModuleLoader__.load({
     }
 
     async function resolvePartName() {
-      const body = await fetchJson('/easycad/parts')
+      const body = await fetchJson('/simplecadfordsh/parts')
       const names = Array.isArray(body && body.names) ? body.names : []
       const rows = Array.isArray(body && body.parts) ? body.parts : []
       if (!names.length) return null
@@ -227,7 +228,7 @@ window.__ModuleLoader__.load({
         dragging.current = true
         startX.current = event.clientX
         startW.current = readNumber(PANE_KEY, DEFAULT_PANE, MIN_PANE, MAX_PANE)
-        document.body.classList.add('easycad-resizing')
+        document.body.classList.add('simplecadfordsh-resizing')
         event.currentTarget.dataset.dragging = 'true'
         event.currentTarget.setPointerCapture(event.pointerId)
         event.preventDefault()
@@ -243,7 +244,7 @@ window.__ModuleLoader__.load({
       const endDrag = (event) => {
         if (!dragging.current) return
         dragging.current = false
-        document.body.classList.remove('easycad-resizing')
+        document.body.classList.remove('simplecadfordsh-resizing')
         if (event.currentTarget.dataset) event.currentTarget.dataset.dragging = 'false'
         try { event.currentTarget.releasePointerCapture(event.pointerId) } catch {}
       }
@@ -261,7 +262,7 @@ window.__ModuleLoader__.load({
         dragging.current = true
         startX.current = event.clientX
         startW.current = getWidth()
-        document.body.classList.add('easycad-resizing')
+        document.body.classList.add('simplecadfordsh-resizing')
         event.currentTarget.dataset.dragging = 'true'
         event.currentTarget.setPointerCapture(event.pointerId)
         event.preventDefault()
@@ -276,7 +277,7 @@ window.__ModuleLoader__.load({
       const endDrag = (event) => {
         if (!dragging.current) return
         dragging.current = false
-        document.body.classList.remove('easycad-resizing')
+        document.body.classList.remove('simplecadfordsh-resizing')
         if (event.currentTarget.dataset) event.currentTarget.dataset.dragging = 'false'
         try { event.currentTarget.releasePointerCapture(event.pointerId) } catch {}
       }
@@ -296,7 +297,7 @@ window.__ModuleLoader__.load({
           setBusy(false)
         }
       }
-      const title = latest ? (`打开 EasyCAD：${latest}`) : '打开 EasyCAD 分屏'
+      const title = latest ? (`打开 SimpleCADforDSH：${latest}`) : '打开 SimpleCADforDSH 分屏'
       const className = compact ? 'ec-head-btn' : 'ec-foot-btn'
       return e('button', {
         type: 'button',
@@ -305,7 +306,7 @@ window.__ModuleLoader__.load({
         disabled: busy,
         title,
         onClick,
-      }, 'EasyCAD')
+      }, 'SimpleCADforDSH')
     }
 
     function CadHeaderButton() {
@@ -317,13 +318,16 @@ window.__ModuleLoader__.load({
       const data = resultJson(block) || {}
       const name = data.name || callArgs(block).name || ''
       React.useEffect(() => {
-        if (!running && name) openPart(name)
-      }, [running, name])
+        // Only model-producing/opening calls own the pane. Metadata jobs such
+        // as brief, QA, snapshot and advice may complete moments apart; letting
+        // every result open the pane makes the iframe churn during one CAD run.
+        if (!running && name && AUTO_OPEN_TOOLS.has(toolName)) openPart(name)
+      }, [running, name, toolName])
       const qa = data.qa
       const size = data.facts && data.facts.size_mm
       return e('div', { className: 'ec-card', 'data-state': running ? 'running' : (block.isError ? 'error' : 'ok') },
         e('div', { className: 'ec-row' },
-          e('strong', null, 'EasyCAD'),
+          e('strong', null, 'SimpleCADforDSH'),
           e('span', null, running ? (toolName + '…') : (name || toolName)),
           qa ? e('span', { className: 'ec-qa', 'data-pass': String(Boolean(qa.pass)) }, qa.pass ? 'QA 通过' : 'QA 未过') : null,
           size ? e('span', null, size.join(' × ') + ' mm') : null,
@@ -535,7 +539,7 @@ window.__ModuleLoader__.load({
         try {
           const isGlb = node.ext === '.glb'
           const res = await fetch(
-            '/easycad/import?name=' + encodeURIComponent(node.stem) + (isGlb ? '&kind=glb' : '') + '&path=' + encodeURIComponent(node.abs),
+            '/simplecadfordsh/import?name=' + encodeURIComponent(node.stem) + (isGlb ? '&kind=glb' : '') + '&path=' + encodeURIComponent(node.abs),
             { method: 'POST' },
           )
           const data = await res.json()
@@ -568,7 +572,7 @@ window.__ModuleLoader__.load({
         try {
           const [nextTree, partsRes] = await Promise.all([
             fetchFileTree(),
-            fetch('/easycad/parts', { cache: 'no-store' }),
+            fetch('/simplecadfordsh/parts', { cache: 'no-store' }),
           ])
           setFileTree(nextTree)
           try {
@@ -630,11 +634,11 @@ window.__ModuleLoader__.load({
             setPaneLayoutOpen(true)
           }
         }
-        window.addEventListener('easycad:open', onOpen)
+        window.addEventListener('simplecadfordsh:open', onOpen)
         let last = 0
         const tick = async () => {
           try {
-            const res = await fetch('/easycad/latest', { cache: 'no-store' })
+            const res = await fetch('/simplecadfordsh/latest', { cache: 'no-store' })
             if (!res.ok) return
             const latest = await res.json()
             const stamp = Number(latest.updatedAt) || 0
@@ -649,7 +653,7 @@ window.__ModuleLoader__.load({
         tick()
         const id = setInterval(tick, 2500)
         return () => {
-          window.removeEventListener('easycad:open', onOpen)
+          window.removeEventListener('simplecadfordsh:open', onOpen)
           clearInterval(id)
           setPaneLayoutOpen(false)
         }
@@ -664,7 +668,7 @@ window.__ModuleLoader__.load({
 
       React.useEffect(() => {
         setPaneLayoutOpen(open && Boolean(name))
-        if (!open || !name) document.body.classList.remove('easycad-resizing')
+        if (!open || !name) document.body.classList.remove('simplecadfordsh-resizing')
       }, [open, name])
 
       if (!open || !name) return null
@@ -675,8 +679,8 @@ window.__ModuleLoader__.load({
         : name
       // Always render the built-in in-page preview. The external cad-viewer
       // (scripts\start-cad-viewer.ps1) is currently disabled; its source is
-      // kept under easycad/cad-viewer for a future re-enable.
-      const src = '/easycad/view?name=' + encodeURIComponent(name) + '&embed=1&panel=1'
+      // kept under SimpleCADforDSH/cad-viewer for a future re-enable.
+      const src = '/simplecadfordsh/view?name=' + encodeURIComponent(name) + '&embed=1&panel=1'
       const toggleDir = (dir) => {
         const next = new Set(expandedDirs)
         if (next.has(dir)) next.delete(dir)
@@ -693,7 +697,7 @@ window.__ModuleLoader__.load({
         if (!node) return
         setCtxMenu(null)
         const a = document.createElement('a')
-        a.href = '/easycad/download?path=' + encodeURIComponent(node.path)
+        a.href = '/simplecadfordsh/download?path=' + encodeURIComponent(node.path)
         a.download = node.name || node.path
         document.body.appendChild(a)
         a.click()
@@ -705,7 +709,7 @@ window.__ModuleLoader__.load({
         const label = node.name || node.path
         if (!window.confirm('确定删除文件「' + label + '」吗？此操作不可撤销。')) return
         try {
-          const res = await fetch('/easycad/delete?path=' + encodeURIComponent(node.path), { method: 'POST' })
+          const res = await fetch('/simplecadfordsh/delete?path=' + encodeURIComponent(node.path), { method: 'POST' })
           const data = await res.json().catch(() => ({}))
           if (!res.ok || !data.ok) {
             window.alert((data && data.error) || '删除失败')
@@ -725,12 +729,12 @@ window.__ModuleLoader__.load({
 
       return e('aside', {
         className: 'ec-overlay',
-        'data-shell-overlay-entry': 'easycad',
+        'data-shell-overlay-entry': 'simplecadfordsh',
         style: { width: `${paneWidth}px` },
       },
         e('div', { className: 'ec-resize', title: '拖动调整分屏宽度', ...paneResize }),
         e('div', { className: 'ec-head' },
-          e('strong', null, 'EasyCAD'),
+          e('strong', null, 'SimpleCADforDSH'),
           e('span', { className: 'ec-part', title: partLabel }, partLabel),
           e('div', { style: { flex: 1 } }),
           e('button', { type: 'button', onClick: doRefresh }, '刷新'),
@@ -775,7 +779,7 @@ window.__ModuleLoader__.load({
             ...treeResize,
           }) : null,
           e('section', { className: 'ec-view' },
-            e('iframe', { className: 'ec-frame', title: 'EasyCAD 3D', src, key: `${name}__${reloadKey}` }),
+            e('iframe', { className: 'ec-frame', title: 'SimpleCADforDSH 3D', src, key: `${name}__${reloadKey}` }),
           ),
         ),
         ctxMenu ? e('div', {
@@ -807,19 +811,19 @@ window.__ModuleLoader__.load({
       }
       ctx.slots.inject('shell.overlay', () => ctx.slots.register({
         name: 'shell.overlay',
-        id: 'easycad-pane',
+        id: 'simplecadfordsh-pane',
       }, CadOverlay))
       ctx.slots.inject('sidebar.footer.action', () => ctx.slots.register({
         name: 'sidebar.footer.action',
-        id: 'easycad-open',
+        id: 'simplecadfordsh-open',
         order: 50,
-        label: 'EasyCAD',
+        label: 'SimpleCADforDSH',
       }, CadOpenButton))
       ctx.slots.inject('conversation.session.header.actions', () => ctx.slots.register({
         name: 'conversation.session.header.actions',
-        id: 'easycad-open',
+        id: 'simplecadfordsh-open',
         order: 40,
-        label: 'EasyCAD',
+        label: 'SimpleCADforDSH',
       }, CadHeaderButton))
     }
 

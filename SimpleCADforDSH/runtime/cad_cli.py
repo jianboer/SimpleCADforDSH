@@ -1,4 +1,4 @@
-"""EasyCAD-owned CAD CLI. Does not import text-to-cad / MAC / dsh source.
+"""SimpleCADforDSH-owned CAD CLI. Does not import text-to-cad / MAC / dsh source.
 
 Commands:
   write-gen / gen / inspect / qa / export / brief / measure / preview / params / apply
@@ -71,7 +71,7 @@ def _models_script(stem_or_path: str) -> Path:
 
 
 def _load_gen_step(script: Path):
-    spec = importlib.util.spec_from_file_location(f"easycad_{script.stem}", script)
+    spec = importlib.util.spec_from_file_location(f"simplecadfordsh_{script.stem}", script)
     if spec is None or spec.loader is None:
         raise RuntimeError(f"cannot load {script}")
     module = importlib.util.module_from_spec(spec)
@@ -104,12 +104,18 @@ def _solid_count(shape) -> int:
 def _shape_facts(shape) -> dict:
     if shape is None:
         raise RuntimeError("gen_step() returned None")
-    if getattr(shape, "is_null", False):
+    null_state = getattr(shape, "is_null", False)
+    if callable(null_state):
+        null_state = null_state()
+    if null_state:
         raise RuntimeError("gen_step() returned an empty shape")
 
     valid = True
     if hasattr(shape, "is_valid"):
-        valid = bool(shape.is_valid)
+        valid_state = shape.is_valid
+        if callable(valid_state):
+            valid_state = valid_state()
+        valid = bool(valid_state)
 
     bbox = shape.bounding_box()
     size = [
@@ -290,21 +296,43 @@ def _publish_latest(result: dict) -> None:
     exports = result.get("exports")
     if isinstance(exports, dict):
         artifacts.update({k: str(v) for k, v in exports.items() if v})
+    updated_at = int(time.time() * 1000)
     payload = {
         "name": stem,
-        "updatedAt": int(time.time() * 1000),
+        "updatedAt": updated_at,
         "ok": bool(result.get("ok")),
         "qa": result.get("qa"),
         "facts": result.get("facts"),
         "artifacts": artifacts,
-        "view": f"/easycad/view?name={stem}&embed=1",
+        "view": f"/simplecadfordsh/view?name={stem}&embed=1",
     }
     MODELS.mkdir(parents=True, exist_ok=True)
-    (MODELS / ".easycad-latest.json").write_text(
+    (MODELS / ".simplecadfordsh-latest.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
+    # Let an in-page apply finish advance its own revision immediately. Without
+    # this, its next poll sees the revision it just created as an external
+    # change and loads the same GLB a second time.
+    result["updatedAt"] = updated_at
     result["dock"] = payload["view"]
+
+
+def _should_publish_latest(command: str, result: dict) -> bool:
+    """Only announce changes that can replace the model shown in the viewport.
+
+    Metadata-only commands used to bump .simplecadfordsh-latest.json too. The embedded
+    viewer treated each bump as a new mesh and repeatedly reset the camera while
+    QA/snapshot/similarity/advice jobs were running.
+    """
+    if not result.get("name"):
+        return False
+    if command in {"write-gen", "gen", "apply", "import"}:
+        return True
+    if command == "export":
+        exports = result.get("exports")
+        return isinstance(exports, dict) and bool(exports.get("glb"))
+    return False
 
 
 def cmd_write_gen(name: str, source: str, expect_size: list[float] | None, tol: float, ref_image: str | None = None) -> dict:
@@ -314,7 +342,7 @@ def cmd_write_gen(name: str, source: str, expect_size: list[float] | None, tol: 
     if "def gen_step" not in text:
         raise ValueError("source must define def gen_step()")
     # Hard gate: every generated part must be parameterized so it stays editable
-    # in the in-pane editor and via easycad_apply.
+    # in the in-pane editor and via simplecadfordsh_apply.
     ok, issues = validate_parameterized_source(text)
     if not ok:
         raise ValueError("源码未参数化，拒绝生成：\n- " + "\n- ".join(issues))
@@ -548,7 +576,7 @@ def cmd_worker() -> int:
                 result = fc("cmd_advice", name)
             else:
                 raise ValueError(f"unknown worker cmd: {cmd!r}")
-            if result.get("name"):
+            if fc("_should_publish_latest", str(cmd or ""), result):
                 fc("_publish_latest", result)
             print(json.dumps(result, ensure_ascii=False))
             sys.stdout.flush()
@@ -962,7 +990,7 @@ def _read_json_arg(text: str, stdin: bool) -> object:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="easycad-cad")
+    parser = argparse.ArgumentParser(prog="simplecadfordsh-cad")
     sub = parser.add_subparsers(dest="cmd", required=True)
 
     p_write = sub.add_parser("write-gen")
@@ -1087,7 +1115,7 @@ def main(argv: list[str] | None = None) -> int:
     except Exception as exc:
         print(json.dumps({"ok": False, "error": str(exc)}, ensure_ascii=False))
         return 1
-    if result.get("name") and args.cmd not in {"params"}:
+    if _should_publish_latest(args.cmd, result):
         _publish_latest(result)
     print(json.dumps(result, ensure_ascii=False))
     return 0 if result.get("ok") else 2

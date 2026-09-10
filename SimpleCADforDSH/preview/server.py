@@ -1,4 +1,4 @@
-"""Tiny local preview server for the EasyCAD IR + GLB demo. Stdlib only."""
+"""Tiny local preview server for the SimpleCADforDSH IR + GLB demo. Stdlib only."""
 
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ from urllib.parse import parse_qs, urlparse
 ROOT = Path(__file__).resolve().parents[2]
 PREVIEW = Path(__file__).resolve().parent
 MODELS = ROOT / "models"
-RUNTIME = ROOT / "easycad" / "runtime"
+RUNTIME = ROOT / "SimpleCADforDSH" / "runtime"
 CLI = RUNTIME / "cad_cli.py"
 if str(RUNTIME) not in sys.path:
     sys.path.insert(0, str(RUNTIME))
@@ -23,7 +23,7 @@ from params import extract_params, load_ir  # noqa: E402
 
 
 def _python() -> str:
-    return os.environ.get("EASYCAD_PYTHON") or sys.executable
+    return os.environ.get("SIMPLECADFORDSH_PYTHON") or sys.executable
 
 
 def _cli(args: list[str], stdin: str | None = None) -> dict:
@@ -57,7 +57,7 @@ class Handler(SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.end_headers()
-            self.wfile.write(b'{"ok":true,"service":"easycad-preview"}\n')
+            self.wfile.write(b'{"ok":true,"service":"simplecadfordsh-preview"}\n')
             return
         if path == "/" or path == "/index.html":
             self._send_file(PREVIEW / "index.html", "text/html; charset=utf-8")
@@ -74,7 +74,7 @@ class Handler(SimpleHTTPRequestHandler):
             self._send_json({"ok": True, "name": name, **extracted})
             return
         if path == "/latest":
-            latest = MODELS / ".easycad-latest.json"
+            latest = MODELS / ".simplecadfordsh-latest.json"
             if not latest.is_file():
                 self._send_json({"name": None})
                 return

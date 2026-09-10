@@ -169,13 +169,13 @@ def update_ir(ir: dict[str, Any], name: str, values: dict[str, float]) -> dict[s
 def validate_parameterized_source(source: str) -> tuple[bool, list[str]]:
     """Enforce the "every generated part is parameterized" rule.
 
-    A part is only editable in the pane / via easycad_apply when its source
+    A part is only editable in the pane / via simplecadfordsh_apply when its source
     declares a module-level ``PARAMS`` dict carrying at least ``length``,
     ``width`` and ``height``, AND the body of ``gen_step()`` actually reads one
     of those keys. Returns (ok, issues) where issues are human-readable reasons.
 
     This is a hard gate: ``cmd_write_gen`` refuses to build a part whose source
-    does not pass, so no non-editable part can be produced by easycad_gen.
+    does not pass, so no non-editable part can be produced by simplecadfordsh_gen.
     """
     issues: list[str] = []
     text = source.replace("\r\n", "\n")

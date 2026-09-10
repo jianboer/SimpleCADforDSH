@@ -1,38 +1,34 @@
 /**
- * EasyCAD out-of-tree dsh plugin. Registers CAD tools; does not live in
+ * SimpleCADforDSH out-of-tree dsh plugin. Registers CAD tools; does not live in
  * deepseek-harness / text-to-cad / Multi-Agent-CAD.
  */
 import { spawn } from 'node:child_process'
-import { existsSync } from 'node:fs'
-import { homedir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { attachCadRoutes } from './routes.js'
 
-export const name = 'easycad'
+export const name = 'simplecadfordsh'
 export const inject = ['tools', 'webServer']
 
 const PLUGIN_DIR = dirname(fileURLToPath(import.meta.url))
-const EASYCAD_ROOT = join(PLUGIN_DIR, '..', '..')
-const CLI = join(EASYCAD_ROOT, 'easycad', 'runtime', 'cad_cli.py')
+const PROJECT_ROOT = join(PLUGIN_DIR, '..', '..')
+const CLI = join(PROJECT_ROOT, 'SimpleCADforDSH', 'runtime', 'cad_cli.py')
 
 function pythonBin() {
-  if (process.env.EASYCAD_PYTHON) return process.env.EASYCAD_PYTHON
-  const home = homedir()
-  const candidates = [
-    join(home, 'anaconda3', 'envs', 'multi_agent_cad', 'python.exe'),
-    join(home, 'miniconda3', 'envs', 'multi_agent_cad', 'python.exe'),
-  ]
-  for (const path of candidates) {
-    if (existsSync(path)) return path
+  const configured = process.env.SIMPLECADFORDSH_PYTHON?.trim()
+  if (!configured) {
+    throw new Error(
+      'SIMPLECADFORDSH_PYTHON is not set. Point it at the active Conda environment Python '
+      + '(for example, set SIMPLECADFORDSH_PYTHON to <conda-env>/python.exe) before starting dsh.',
+    )
   }
-  return process.platform === 'win32' ? 'python.exe' : 'python'
+  return configured
 }
 
 function runCli(cliArgs, signal, stdinText) {
   return new Promise((resolve, reject) => {
     const child = spawn(pythonBin(), [CLI, ...cliArgs], {
-      cwd: EASYCAD_ROOT,
+      cwd: PROJECT_ROOT,
       env: { ...process.env, PYTHONUTF8: '1', PYTHONIOENCODING: 'utf-8' },
       windowsHide: true,
     })
@@ -84,7 +80,7 @@ let workerTail = Promise.resolve()
 
 function spawnWorkerChild() {
   workerChild = spawn(pythonBin(), [CLI, 'worker'], {
-    cwd: EASYCAD_ROOT,
+    cwd: PROJECT_ROOT,
     env: { ...process.env, PYTHONUTF8: '1', PYTHONIOENCODING: 'utf-8' },
     windowsHide: true,
     stdio: ['pipe', 'pipe', 'pipe'],
@@ -188,24 +184,24 @@ function outputSchema(required, properties) {
 }
 
 function viewerUrl(name) {
-  return `/easycad/view?name=${encodeURIComponent(name)}`
+  return `/simplecadfordsh/view?name=${encodeURIComponent(name)}`
 }
 
 export function apply(ctx) {
   attachCadRoutes(ctx, {
-    modelsDir: join(EASYCAD_ROOT, 'models'),
-    previewDir: join(EASYCAD_ROOT, 'easycad', 'preview'),
+    modelsDir: join(PROJECT_ROOT, 'models'),
+    previewDir: join(PROJECT_ROOT, 'SimpleCADforDSH', 'preview'),
     pythonBin: pythonBin(),
     cli: CLI,
-    easycadRoot: EASYCAD_ROOT,
+    projectRoot: PROJECT_ROOT,
     workerJob,
   })
 
   ctx.tools.register({
-    name: 'easycad_brief',
+    name: 'simplecadfordsh_brief',
     description:
       'Save a structured CAD brief to models/<name>.brief.json before writing code. '
-      + 'Use when the user describes a part: lock overall_size_mm and special_features, then call easycad_gen with the same expect_size.',
+      + 'Use when the user describes a part: lock overall_size_mm and special_features, then call simplecadfordsh_gen with the same expect_size.',
     parameters: {
       type: 'object',
       additionalProperties: false,
@@ -234,7 +230,7 @@ export function apply(ctx) {
         },
         validation_targets: {
           type: 'array',
-          description: 'Optional measure targets for later easycad_measure rounds.',
+          description: 'Optional measure targets for later simplecadfordsh_measure rounds.',
           items: {
             type: 'object',
             additionalProperties: false,
@@ -279,10 +275,10 @@ export function apply(ctx) {
   })
 
   ctx.tools.register({
-    name: 'easycad_gen',
+    name: 'simplecadfordsh_gen',
     description:
-      'Write models/<name>.step.py, run gen_step(), export STEP+GLB, return facts plus qa. The in-page EasyCAD pane opens on the right. '
-      + 'ALWAYS pass expect_size from the brief/spec. Do not call easycad_inspect or easycad_qa right after this. '
+      'Write models/<name>.step.py, run gen_step(), export STEP+GLB, return facts plus qa. The in-page SimpleCADforDSH pane opens on the right. '
+      + 'ALWAYS pass expect_size from the brief/spec. Do not call simplecadfordsh_inspect or simplecadfordsh_qa right after this. '
       + 'source must be complete Python with from build123d import * and def gen_step() returning one solid. Hole(r) is a radius.',
     parameters: {
       type: 'object',
@@ -319,9 +315,9 @@ export function apply(ctx) {
   })
 
   ctx.tools.register({
-    name: 'easycad_inspect',
+    name: 'simplecadfordsh_inspect',
     description:
-      'Re-measure an existing models/<name>.step.py without rewriting it. Skip after easycad_gen. Use easycad_qa if you only need pass/fail checks.',
+      'Re-measure an existing models/<name>.step.py without rewriting it. Skip after simplecadfordsh_gen. Use simplecadfordsh_qa if you only need pass/fail checks.',
     parameters: {
       type: 'object',
       additionalProperties: false,
@@ -352,10 +348,10 @@ export function apply(ctx) {
   })
 
   ctx.tools.register({
-    name: 'easycad_qa',
+    name: 'simplecadfordsh_qa',
     description:
       'Re-check an existing part: overall_dimension (if expect_size set), single_body, watertight. '
-      + 'Skip after easycad_gen — that call already returns qa. Use when reviewing a file already on disk.',
+      + 'Skip after simplecadfordsh_gen — that call already returns qa. Use when reviewing a file already on disk.',
     parameters: {
       type: 'object',
       additionalProperties: false,
@@ -386,7 +382,7 @@ export function apply(ctx) {
   })
 
   ctx.tools.register({
-    name: 'easycad_measure',
+    name: 'simplecadfordsh_measure',
     description:
       'Measure named overall-axis sizes on an existing part (X/Y/Z bounding-box edges). '
       + 'Use for spec lines like "width 80 mm". Feature-to-feature distances are not supported yet.',
@@ -430,7 +426,7 @@ export function apply(ctx) {
   })
 
   ctx.tools.register({
-    name: 'easycad_export',
+    name: 'simplecadfordsh_export',
     description:
       'Export an existing models/<name>.step.py to mesh formats. Does not rewrite source. '
       + 'formats: stl (print/DfAM) and/or glb (preview). 3mf is not implemented yet.',
@@ -470,10 +466,10 @@ export function apply(ctx) {
   })
 
   ctx.tools.register({
-    name: 'easycad_params',
+    name: 'simplecadfordsh_params',
     description:
       'Read editable parametric fields (length, width, height, hole_d) for models/<name>. '
-      + 'Use before easycad_apply or when the user asks what can be changed without opening the viewer.',
+      + 'Use before simplecadfordsh_apply or when the user asks what can be changed without opening the viewer.',
     parameters: {
       type: 'object',
       additionalProperties: false,
@@ -503,10 +499,10 @@ export function apply(ctx) {
   })
 
   ctx.tools.register({
-    name: 'easycad_apply',
+    name: 'simplecadfordsh_apply',
     description:
       'Apply parametric edits to models/<name>.step.py, regenerate STEP+GLB, return fresh facts/qa. '
-      + 'Same effect as clicking a face in the EasyCAD pane. Pass only keys you want to change.',
+      + 'Same effect as clicking a face in the SimpleCADforDSH pane. Pass only keys you want to change.',
     parameters: {
       type: 'object',
       additionalProperties: false,
@@ -543,10 +539,10 @@ export function apply(ctx) {
   })
 
   ctx.tools.register({
-    name: 'easycad_preview',
+    name: 'simplecadfordsh_preview',
     description:
-      'Show models/<name> in the in-page EasyCAD pane (right side of the dsh window). '
-      + 'Call when the user wants to see or tweak an existing part. easycad_gen already opens that pane.',
+      'Show models/<name> in the in-page SimpleCADforDSH pane (right side of the dsh window). '
+      + 'Call when the user wants to see or tweak an existing part. simplecadfordsh_gen already opens that pane.',
     parameters: {
       type: 'object',
       additionalProperties: false,
@@ -571,7 +567,7 @@ export function apply(ctx) {
   })
 
   ctx.tools.register({
-    name: 'easycad_snapshot',
+    name: 'simplecadfordsh_snapshot',
     description:
       'Render PNG orthographic (iso/front/right/top) views of a part to models/<name>.view_*.png. '
       + 'Used by similarity and for human review; does not rewrite the model.',
@@ -603,7 +599,7 @@ export function apply(ctx) {
   })
 
   ctx.tools.register({
-    name: 'easycad_similarity',
+    name: 'simplecadfordsh_similarity',
     description:
       'Compare a generated part against a reference image via silhouette IoU (front/right/top). '
       + 'Pass ref_image, or auto-use models/<name>.ref.png. Writes models/<name>.similarity.json and view PNGs. Advisory, never fails geometry QA.',
@@ -631,7 +627,7 @@ export function apply(ctx) {
   })
 
   ctx.tools.register({
-    name: 'easycad_advice',
+    name: 'simplecadfordsh_advice',
     description:
       'Generate rule-based AI suggestions from the latest QA + similarity + IR (text prompt intent). '
       + 'Writes models/<name>.advice.json and returns it. Deterministic, no model call.',
@@ -654,9 +650,9 @@ export function apply(ctx) {
   })
 
   ctx.tools.register({
-    name: 'easycad_part',
+    name: 'simplecadfordsh_part',
     description:
-      '[NOT IMPLEMENTED] Search/download a catalog standard part (screw, bearing). Do not call. Model a placeholder with easycad_gen instead.',
+      '[NOT IMPLEMENTED] Search/download a catalog standard part (screw, bearing). Do not call. Model a placeholder with simplecadfordsh_gen instead.',
     parameters: {
       type: 'object',
       additionalProperties: false,
@@ -672,14 +668,14 @@ export function apply(ctx) {
     }),
     timeoutMs: 15000,
     async execute() {
-      return unimplemented('easycad_part', 'Standard-part catalog is not wired. Placeholder-model with easycad_gen.')
+      return unimplemented('simplecadfordsh_part', 'Standard-part catalog is not wired. Placeholder-model with simplecadfordsh_gen.')
     },
   })
 
   ctx.tools.register({
-    name: 'easycad_assemble',
+    name: 'simplecadfordsh_assemble',
     description:
-      '[NOT IMPLEMENTED] Mate multiple parts (face-to-face, coaxial) and check interference. Do not call. Keep one solid in easycad_gen unless the user insists.',
+      '[NOT IMPLEMENTED] Mate multiple parts (face-to-face, coaxial) and check interference. Do not call. Keep one solid in simplecadfordsh_gen unless the user insists.',
     parameters: {
       type: 'object',
       additionalProperties: false,
@@ -721,14 +717,14 @@ export function apply(ctx) {
     }),
     timeoutMs: 15000,
     async execute() {
-      return unimplemented('easycad_assemble', 'AssemblyHelper is not copied yet.')
+      return unimplemented('simplecadfordsh_assemble', 'AssemblyHelper is not copied yet.')
     },
   })
 
   ctx.tools.register({
-    name: 'easycad_dfam',
+    name: 'simplecadfordsh_dfam',
     description:
-      '[NOT IMPLEMENTED] Design-for-additive-manufacturing check on an STL (overhang, wall thickness). Do not call. Export STL with easycad_export first when this exists.',
+      '[NOT IMPLEMENTED] Design-for-additive-manufacturing check on an STL (overhang, wall thickness). Do not call. Export STL with simplecadfordsh_export first when this exists.',
     parameters: {
       type: 'object',
       additionalProperties: false,
@@ -748,7 +744,7 @@ export function apply(ctx) {
     }),
     timeoutMs: 15000,
     async execute() {
-      return unimplemented('easycad_dfam', 'Copy dfam-check into easycad/ before enabling.')
+      return unimplemented('simplecadfordsh_dfam', 'Copy dfam-check into SimpleCADforDSH/ before enabling.')
     },
   })
 

@@ -115,6 +115,7 @@ function scanModelFiles(modelsDir, relDir, byName) {
     if (entry.name.startsWith('.')) continue
     const relPath = relDir ? `${relDir}/${entry.name}` : entry.name
     if (entry.isDirectory()) {
+      if (entry.name === '__pycache__' || entry.name === '_pycache_' || entry.name.startsWith('__')) continue
       scanModelFiles(join(modelsDir, entry.name), relPath, byName)
       continue
     }
@@ -240,15 +241,15 @@ function buildWorkspace3dTree(root) {
 }
 
 export async function handleRequest(paths, req, res) {
-  const { modelsDir, previewDir, pythonBin, cli, easycadRoot, workerJob } = paths
+  const { modelsDir, previewDir, pythonBin, cli, projectRoot, workerJob } = paths
   const url = new URL(req.url || '/', 'http://127.0.0.1')
   const path = url.pathname
-  if (path === '/easycad' || path === '/easycad/' || path === '/easycad/view') {
+  if (path === '/simplecadfordsh' || path === '/simplecadfordsh/' || path === '/simplecadfordsh/view') {
     sendFile(res, join(previewDir, 'index.html'), 'text/html; charset=utf-8')
     return
   }
-  if (path === '/easycad/latest') {
-    const file = join(modelsDir, '.easycad-latest.json')
+  if (path === '/simplecadfordsh/latest') {
+    const file = join(modelsDir, '.simplecadfordsh-latest.json')
     if (!existsSync(file)) {
       send(res, 200, 'application/json; charset=utf-8', '{"name":null}\n')
       return
@@ -256,23 +257,23 @@ export async function handleRequest(paths, req, res) {
     sendFile(res, file, 'application/json; charset=utf-8')
     return
   }
-  if (path === '/easycad/parts') {
+  if (path === '/simplecadfordsh/parts') {
     send(res, 200, 'application/json; charset=utf-8', `${JSON.stringify(listParts(modelsDir))}\n`)
     return
   }
-  if (path === '/easycad/modelsdir') {
+  if (path === '/simplecadfordsh/modelsdir') {
     const dir = String(modelsDir).replace(/\\/g, '/')
     send(res, 200, 'application/json; charset=utf-8', `${JSON.stringify({ dir })}\n`)
     return
   }
-  if (path === '/easycad/tree') {
+  if (path === '/simplecadfordsh/tree') {
     send(res, 200, 'application/json; charset=utf-8', `${JSON.stringify({
-      root: 'EasyCAD',
-      tree: buildWorkspace3dTree(easycadRoot),
+      root: 'SimpleCADforDSH',
+      tree: buildWorkspace3dTree(projectRoot),
     })}\n`)
     return
   }
-  if (path === '/easycad/ensure-glb') {
+  if (path === '/simplecadfordsh/ensure-glb') {
     const name = url.searchParams.get('name') || ''
     if (!name) {
       send(res, 400, 'application/json; charset=utf-8', '{"ok":false,"error":"name required"}\n')
@@ -283,37 +284,37 @@ export async function handleRequest(paths, req, res) {
       // one-off preview rebuild is seconds, not a ~14s cold import.
       const result = workerJob
         ? await workerJob({ cmd: 'preview', name })
-        : await runCadCli(pythonBin, cli, easycadRoot, ['preview', name])
+        : await runCadCli(pythonBin, cli, projectRoot, ['preview', name])
       send(res, result.ok === false ? 400 : 200, 'application/json; charset=utf-8', `${JSON.stringify(result)}\n`)
     } catch (error) {
       send(res, 500, 'application/json; charset=utf-8', `${JSON.stringify({ ok: false, error: String(error.message || error) })}\n`)
     }
     return
   }
-  if (path === '/easycad/params') {
+  if (path === '/simplecadfordsh/params') {
     const name = url.searchParams.get('name') || ''
     try {
-      const result = await runCadCli(pythonBin, cli, easycadRoot, ['params', name || 'loop_demo'])
+      const result = await runCadCli(pythonBin, cli, projectRoot, ['params', name || 'loop_demo'])
       send(res, 200, 'application/json; charset=utf-8', `${JSON.stringify(result)}\n`)
     } catch (error) {
       send(res, 500, 'application/json; charset=utf-8', `${JSON.stringify({ ok: false, error: String(error.message || error) })}\n`)
     }
     return
   }
-  if (path === '/easycad/apply' && req.method === 'POST') {
+  if (path === '/simplecadfordsh/apply' && req.method === 'POST') {
     try {
       const rawBody = await readBody(req)
       const payload = JSON.parse(rawBody.toString('utf8'))
       const result = workerJob
         ? await workerJob({ cmd: 'apply', name: payload.name, params: payload.params || payload })
-        : await runCadCli(pythonBin, cli, easycadRoot, ['apply', '--json-stdin'], rawBody)
+        : await runCadCli(pythonBin, cli, projectRoot, ['apply', '--json-stdin'], rawBody)
       send(res, result.ok === false ? 400 : 200, 'application/json; charset=utf-8', `${JSON.stringify(result)}\n`)
     } catch (error) {
       send(res, 500, 'application/json; charset=utf-8', `${JSON.stringify({ ok: false, error: String(error.message || error) })}\n`)
     }
     return
   }
-  if (path === '/easycad/import' && req.method === 'POST') {
+  if (path === '/simplecadfordsh/import' && req.method === 'POST') {
     const name = (url.searchParams.get('name') || '').trim()
     const kind = (url.searchParams.get('kind') || '').toLowerCase()
     const srcPath = url.searchParams.get('path') || ''
@@ -324,7 +325,7 @@ export async function handleRequest(paths, req, res) {
     try {
       // `path` = a server-side workspace file to open; otherwise the POST
       // body holds the uploaded file bytes.
-      const body = srcPath ? readFileSync(resolveBrowsePath(easycadRoot, srcPath)) : await readBody(req)
+      const body = srcPath ? readFileSync(resolveBrowsePath(projectRoot, srcPath)) : await readBody(req)
       // A GLB is already renderable: copy it into models/ and open it. A
       // STEP/STP is imported (STEP -> GLB) so the viewer can show it.
       if (kind === 'glb') {
@@ -336,14 +337,14 @@ export async function handleRequest(paths, req, res) {
       writeFileSync(tmp, body, 'utf8')
       const result = workerJob
         ? await workerJob({ cmd: 'import', name, step: tmp })
-        : await runCadCli(pythonBin, cli, easycadRoot, ['import', '--name', name, tmp])
+        : await runCadCli(pythonBin, cli, projectRoot, ['import', '--name', name, tmp])
       send(res, result.ok === false ? 400 : 200, 'application/json; charset=utf-8', `${JSON.stringify(result)}\n`)
     } catch (error) {
       send(res, 500, 'application/json; charset=utf-8', `${JSON.stringify({ ok: false, error: String(error.message || error) })}\n`)
     }
     return
   }
-  if (path === '/easycad/ref' && req.method === 'POST') {
+  if (path === '/simplecadfordsh/ref' && req.method === 'POST') {
     const name = (url.searchParams.get('name') || '').trim()
     const srcPath = url.searchParams.get('path') || ''
     if (!name) {
@@ -354,7 +355,7 @@ export async function handleRequest(paths, req, res) {
       // `path` = a server-side workspace file to use as the reference; otherwise
       // the POST body holds the uploaded image bytes (saved raw so the image is
       // exact, including alpha/transparency used by the mask extractor).
-      const body = srcPath ? readFileSync(resolveBrowsePath(easycadRoot, srcPath)) : await readBody(req)
+      const body = srcPath ? readFileSync(resolveBrowsePath(projectRoot, srcPath)) : await readBody(req)
       const out = join(modelsDir, `${name}.ref.png`)
       writeFileSync(out, body)
       send(res, 200, 'application/json; charset=utf-8', `${JSON.stringify({ ok: true, name, ref: `models/${name}.ref.png` })}\n`)
@@ -363,9 +364,9 @@ export async function handleRequest(paths, req, res) {
     }
     return
   }
-  if (path === '/easycad/download') {
+  if (path === '/simplecadfordsh/download') {
     const rel = url.searchParams.get('path') || ''
-    const file = safeJoin(easycadRoot, rel)
+    const file = safeJoin(projectRoot, rel)
     if (!file || !isPreviewable3d(file) || !statSync(file).isFile()) {
       send(res, 404, 'text/plain; charset=utf-8', 'not found')
       return
@@ -373,9 +374,9 @@ export async function handleRequest(paths, req, res) {
     sendFile(res, file, undefined, basename(file))
     return
   }
-  if (path === '/easycad/delete' && req.method === 'POST') {
+  if (path === '/simplecadfordsh/delete' && req.method === 'POST') {
     const rel = url.searchParams.get('path') || ''
-    const file = safeJoin(easycadRoot, rel)
+    const file = safeJoin(projectRoot, rel)
     if (!file || !isPreviewable3d(file) || !statSync(file).isFile()) {
       send(res, 404, 'application/json; charset=utf-8', '{"ok":false,"error":"not found"}\n')
       return
@@ -388,8 +389,8 @@ export async function handleRequest(paths, req, res) {
     }
     return
   }
-  if (path.startsWith('/easycad/models/')) {
-    const rel = decodeURIComponent(path.slice('/easycad/models/'.length))
+  if (path.startsWith('/simplecadfordsh/models/')) {
+    const rel = decodeURIComponent(path.slice('/simplecadfordsh/models/'.length))
     const file = safeJoin(modelsDir, rel)
     if (!file || !statSync(file).isFile()) {
       send(res, 404, 'text/plain; charset=utf-8', 'not found')
@@ -406,7 +407,7 @@ export function attachCadRoutes(ctx, paths) {
   if (!web) return
   ctx.effect(() => web.register({
     kind: 'prefix',
-    path: '/easycad',
+    path: '/simplecadfordsh',
     async handler(req, res) {
       // Cache-busting re-import: each request re-evaluates routes.js, so edits
       // to this module take effect on the next request — no dsh restart. If the
@@ -419,5 +420,5 @@ export function attachCadRoutes(ctx, paths) {
       }
       await (fresh ? fresh.handleRequest(paths, req, res) : handleRequest(paths, req, res))
     },
-  }), 'easycad: routes')
+  }), 'simplecadfordsh: routes')
 }

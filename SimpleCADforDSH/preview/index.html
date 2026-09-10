@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>EasyCAD</title>
+  <title>SimpleCADforDSH</title>
   <style>
     :root {
       color-scheme: light;
@@ -135,7 +135,7 @@
       color: var(--ec-muted); font-size: 11px; pointer-events: none;
     }
     .viewport-toolbar {
-      position: absolute; right: 10px; bottom: 10px; z-index: 1;
+      position: absolute; right: 10px; bottom: 10px; z-index: 3;
       display: flex; gap: 4px; padding: 4px;
       background: rgb(255 255 255 / 92%);
       border: 1px solid var(--ec-border);
@@ -302,7 +302,7 @@
 <body>
   <div class="workbench">
     <header class="topbar">
-      <div class="brand">EasyCAD</div>
+      <div class="brand">SimpleCADforDSH</div>
       <nav class="crumb" aria-label="路径">
         <span>models</span><span>/</span><strong id="crumb-name">—</strong>
       </nav>
@@ -393,7 +393,7 @@
     }
 
     const query = new URLSearchParams(location.search)
-    const base = location.pathname.startsWith('/easycad') ? '/easycad' : ''
+    const base = location.pathname.startsWith('/simplecadfordsh') ? '/simplecadfordsh' : ''
     if (query.get('embed') === '1') document.body.classList.add('embed')
     if (query.get('bare') === '1') {
       document.body.classList.add('bare')
@@ -414,7 +414,7 @@
     const sheetEl = document.getElementById('sheet')
     const sheetGrip = document.getElementById('sheet-grip')
     if (sheetEl && sheetGrip) {
-      const KEY = 'easycad:sheet-width'
+      const KEY = 'simplecadfordsh:sheet-width'
       const MIN = 220
       const MAX = 680
       let saved = NaN
@@ -577,7 +577,7 @@
     function syncChrome() {
       crumbName.textContent = name || '—'
       dims.textContent = dimText()
-      document.title = 'EasyCAD · ' + (name || '—')
+      document.title = 'SimpleCADforDSH · ' + (name || '—')
       if (partsSelect && partsSelect.value !== name) partsSelect.value = name
       renderFileTree()
     }
@@ -1014,7 +1014,7 @@
         inspectorEmpty.hidden = false
         inspectorEdit.hidden = true
         inspectorEmpty.textContent = spec
-          ? ('选中面关联「' + spec.title + '」，但该零件未参数化；可在对话里用 easycad_gen / easycad_apply 调整。')
+          ? ('选中面关联「' + spec.title + '」，但该零件未参数化；可在对话里用 simplecadfordsh_gen / simplecadfordsh_apply 调整。')
           : '该零件未参数化，无法在预览中改尺寸。'
         return
       }
@@ -1165,12 +1165,15 @@
       const offsets = {
         iso: new THREE.Vector3(1, 1, 1),
         front: new THREE.Vector3(0, 0, 1),
-        top: new THREE.Vector3(0, 1, 0),
+        // A microscopic Z component avoids a look-at singularity: the default
+        // camera up vector is parallel to an exact +Y top-view direction.
+        top: new THREE.Vector3(0, 1, 1e-6),
         right: new THREE.Vector3(1, 0, 0),
       }
       const off = offsets[preset] || offsets.iso
       controls.target.copy(partCenter)
       camera.position.copy(partCenter).add(off.clone().normalize().multiplyScalar(viewDistance))
+      camera.lookAt(partCenter)
       controls.update()
       document.querySelectorAll('[data-view]').forEach((btn) => {
         btn.dataset.active = btn.dataset.view === preset ? 'true' : 'false'
@@ -1250,7 +1253,6 @@
 
     async function loadGlb(token, glbPath, keepView = false) {
       ensureScene()
-      if (modelRoot) { scene.remove(modelRoot) }
       if (highlight) { scene.remove(highlight); highlight = null }
       if (hoverMesh) { scene.remove(hoverMesh); hoverMesh = null }
       let gltf
@@ -1265,6 +1267,7 @@
         gltf = await new GLTFLoader().loadAsync(modelUrl(path) + '?t=' + Date.now())
       }
       if (token !== loadingToken) return false
+      if (modelRoot) scene.remove(modelRoot)
       modelRoot = gltf.scene
       scene.add(modelRoot)
       if (!keepView) { fitCamera(modelRoot); setView('iso') }
@@ -1293,6 +1296,9 @@
 
     async function showPart(next, stamp) {
       if (!next || next === name && stamp === lastStamp && modelRoot) return
+      // A regenerated GLB for the already-open part should not steal the view
+      // the user just chose or reached with OrbitControls.
+      const keepView = next === name && Boolean(modelRoot)
       const token = ++loadingToken
       name = next
       if (stamp) lastStamp = stamp
@@ -1309,11 +1315,11 @@
         const glbPath = await ensureGlb()
         if (token !== loadingToken) return
         if (!glbPath) {
-          setLoading('无法预览：缺少 GLB，且无法从 STEP 生成。请先在对话里 easycad_gen / easycad_export。')
+          setLoading('无法预览：缺少 GLB，且无法从 STEP 生成。请先在对话里 simplecadfordsh_gen / simplecadfordsh_export。')
           setStatus('预览不可用', 'error')
           return
         }
-        await loadGlb(token, glbPath)
+        await loadGlb(token, glbPath, keepView)
         if (token !== loadingToken) return
         clearLoading()
         setStatus(`已加载 ${name}`, 'ok')
@@ -1437,6 +1443,7 @@
         })
         const data = await res.json()
         if (!res.ok || data.ok === false) throw new Error(data.error || '重建失败')
+        lastStamp = Number(data.updatedAt) || lastStamp
         if (data.params && data.params.values) allParams = data.params.values
         if (allParams.length && allParams.width && allParams.height) {
           baseline = { length: allParams.length, width: allParams.width, height: allParams.height }

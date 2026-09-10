@@ -1,0 +1,5 @@
+# Template only. start-dsh-web.ps1 writes SimpleCADforDSH/.generated-cordis.patch.yml
+# with absolute skill paths. Do not edit the three reference repos.
+#
+# - skill-filesystem.customSkillDirs -> <SimpleCADforDSH>/.dsh/skills
+# - insert simplecadfordsh -> absolute path to SimpleCADforDSH/dsh-plugin/index.js
