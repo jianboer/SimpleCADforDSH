@@ -1,4 +1,4 @@
-# SimpleCADforDSH — text-to-CAD plugin for DeepSeek Harness
+# SimpleCADforDSH
 
 `SimpleCADforDSH` is an **out-of-tree plugin for [DeepSeek Harness](https://github.com/deepseek-ai/DeepSeek-Harness) (dsh)** that turns text prompts into real, parametric CAD. It uses the official dsh plugin contract (host tools + client slot + skill) and does not fork or patch the dsh source.
 
