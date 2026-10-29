@@ -6,9 +6,12 @@
 
 | 目录 | 用途 |
 | --- | --- |
-| [`requirements/`](requirements/) | 课程目标、评分标准、里程碑、提交规范和验收要求 |
-| [`materials/`](materials/) | 课件、阅读材料、参考链接和示例 |
+| [`requirements/`](requirements) | 课程目标、评分标准、里程碑、提交规范和验收要求 |
+| [`materials/`](materials) | 课件、阅读材料、参考链接和示例 |
 | [`discussions/`](discussions/) | 课堂讨论、选题和评审记录 |
-| [`groups/`](groups/) | 三个开发小组的计划、设计、接口约定和交付记录 |
+| [`groups/`](groups) | 三个开发小组的计划、设计、接口约定和交付记录 |
+| [`report/`](report/任务书.md) | 课程报告初稿分工、交付要求、评分覆盖 |
+
+报告协作入口：[任务书](report/任务书.md)，已合并通知、分工、交付要求及评分检查标准。完整分稿截止为2026年11月2日22:00（北京时间）。
 
 课程级规则放在 `requirements/`，跨组约定放在 `groups/`，仅与某一组有关的内容放在对应小组目录中。
