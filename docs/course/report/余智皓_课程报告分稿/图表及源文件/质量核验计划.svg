@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="660" viewBox="0 0 2400 660">
+<rect width="2400" height="660" fill="white"/>
+<g fill="white" stroke="black" stroke-width="3">
+<rect x="25" y="80" width="430" height="135" rx="10"/>
+<rect x="505" y="80" width="430" height="135" rx="10"/>
+<rect x="985" y="80" width="430" height="135" rx="10"/>
+<rect x="1465" y="80" width="430" height="135" rx="10"/>
+<rect x="1945" y="80" width="430" height="135" rx="10"/>
+<path d="M459 147 h36 m-11 -10 l14 10 l-14 10" fill="none"/>
+<path d="M939 147 h36 m-11 -10 l14 10 l-14 10" fill="none"/>
+<path d="M1419 147 h36 m-11 -10 l14 10 l-14 10" fill="none"/>
+<path d="M1899 147 h36 m-11 -10 l14 10 l-14 10" fill="none"/>
+<rect x="400" y="370" width="650" height="175" rx="10"/>
+<rect x="1350" y="370" width="650" height="175" rx="10"/>
+<path d="M1680 215 V290 H725 V360 M1680 290 V360" fill="none"/>
+</g>
+<g fill="black" font-family="SimSun,serif" text-anchor="middle">
+<text x="240" y="168" font-size="61">需求与AT评审</text>
+<text x="720" y="168" font-size="61">自测与审查</text>
+<text x="1200" y="168" font-size="61">联调及全量AT</text>
+<text x="1680" y="168" font-size="61">PO独立验收</text>
+<text x="2160" y="168" font-size="61">归档与交接</text>
+<text x="725" y="441" font-size="61">故事验收</text><text x="725" y="506" font-size="61">AT与完成定义</text>
+<text x="1675" y="441" font-size="61">阶段验收</text><text x="1675" y="506" font-size="61">G1—G5独立核验</text>
+<text x="1200" y="641" font-size="61">计划流程  两类结论分别记录  未执行项单列</text></g></svg>

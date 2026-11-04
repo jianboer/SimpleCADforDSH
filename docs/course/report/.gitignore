@@ -1,0 +1,8 @@
+.DS_Store
+~$*
+__pycache__/
+*.pyc
+*.inspect.ndjson
+merged/archive/
+merged/source/正文修订对照.json
+merged/source/工作簿公式检查.ndjson

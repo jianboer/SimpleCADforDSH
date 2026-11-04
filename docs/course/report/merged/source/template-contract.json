@@ -1,0 +1,140 @@
+{
+  "reference": "/Users/pano/Documents/SimpleCADforDSH/docs/course/report/references/04课程报告模板.docx",
+  "sha256": "bd14157b7e63fdf20854f59e59a50ae635b91edf2678520066a6e0a20ca9df5a",
+  "reference_pages": 7,
+  "section_count": 1,
+  "page_mm": {
+    "page_width": 210.01,
+    "page_height": 297.0,
+    "top_margin": 25.4,
+    "bottom_margin": 25.4,
+    "left_margin": 31.75,
+    "right_margin": 31.75,
+    "header_distance": 15.01,
+    "footer_distance": 17.5
+  },
+  "package": {
+    "[Content_Types].xml": {
+      "size": 1693,
+      "sha256": "4c8365d1fdb8fe2046af72a676cacb0d35e112c994efecc1e64cea384d05d0c2"
+    },
+    "_rels/": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "_rels/.rels": {
+      "size": 737,
+      "sha256": "514e1846381cb6bcfff105a4b0a17d666cf0ed1f0c120bff73b82226ab7ed977"
+    },
+    "customXml/": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "customXml/_rels/": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "customXml/_rels/item1.xml.rels": {
+      "size": 296,
+      "sha256": "80482f86e196171d66001e0e74d1900408a3aaf2463e54005d251b5f2db9a0b0"
+    },
+    "customXml/item1.xml": {
+      "size": 308,
+      "sha256": "97aeab4589a404a46c75269b7ef428fc417df1f2e7500ea6fa75dd747f6d5cdf"
+    },
+    "customXml/itemProps1.xml": {
+      "size": 327,
+      "sha256": "16c9a9ab07e137bbf93dbcfe36c21a778cdccdd1d2b152085354b53a2f17d1c1"
+    },
+    "docProps/": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "docProps/app.xml": {
+      "size": 631,
+      "sha256": "11eb1b9d73433a690109970f8df17d509c0dd7fd619f4c4e22b203e548ae3557"
+    },
+    "docProps/core.xml": {
+      "size": 631,
+      "sha256": "19bd35ad86f453ea32a6de1ef3929e135480913bf115b1adaa0618db7d4b47a0"
+    },
+    "docProps/custom.xml": {
+      "size": 750,
+      "sha256": "26a0843cafa632d2e186fae7c33379c2b882fb11af85b250511842224897d0be"
+    },
+    "word/": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "word/_rels/": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "word/_rels/document.xml.rels": {
+      "size": 1083,
+      "sha256": "cdd016176c38d38a33cf1fcd8f64cd2780afc2953869845a5312bc0306c6dd7b"
+    },
+    "word/document.xml": {
+      "size": 57068,
+      "sha256": "9da13754b8e8967c75aaf8eb65d2a8cd16ec8ea13430846ed906f8dea8823185"
+    },
+    "word/fontTable.xml": {
+      "size": 2508,
+      "sha256": "c3307d2369db9367041be4673240b0d1279dc1095e21275e5392cbcbe9d424d2"
+    },
+    "word/footer1.xml": {
+      "size": 8745,
+      "sha256": "998174628c650f9df855253286564afb5aa5ae1a18a15c99fd3aecf1774cccda"
+    },
+    "word/numbering.xml": {
+      "size": 1613,
+      "sha256": "b0d49348628550797b2c6d9c24611578a8416c2f9ff9178ab3517e2673775b1c"
+    },
+    "word/settings.xml": {
+      "size": 3476,
+      "sha256": "ee22d69f5b2618811b53cc588e018d683d88843a06bdd44efb2ab24709da0c41"
+    },
+    "word/styles.xml": {
+      "size": 28359,
+      "sha256": "e477445228e4e03e809bab36f58dfa17855279a94d5a1ae91ae843b12e5b3d5f"
+    },
+    "word/theme/": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "word/theme/theme1.xml": {
+      "size": 6436,
+      "sha256": "2157ebaa401af49c0c9b80ad88ccbad4dbe486136a0b3f4bddc77de976340c33"
+    }
+  },
+  "intentional_changes": [
+    "封面项目/2课堂12组/八人/2026年11月",
+    "模板指导语及正文占位替换为完整报告",
+    "正文按评分标准12pt/20pt，消除继承自动编号；字体宋体/Times New Roman",
+    "正文扩展、目录及图表、参考文献与报告附录",
+    "footer关系及页面几何保留，页码居中",
+    "渲染中文字体宋体映射Songti SC；不修改原模板"
+  ],
+  "preserved_parts": [
+    "_rels/.rels",
+    "customXml/_rels/item1.xml.rels",
+    "customXml/item1.xml",
+    "customXml/itemProps1.xml",
+    "docProps/app.xml",
+    "docProps/custom.xml",
+    "word/fontTable.xml",
+    "word/numbering.xml",
+    "word/settings.xml",
+    "word/theme/theme1.xml"
+  ],
+  "changed_parts": [
+    "[Content_Types].xml",
+    "docProps/core.xml",
+    "word/_rels/document.xml.rels",
+    "word/document.xml",
+    "word/footer1.xml",
+    "word/styles.xml"
+  ],
+  "missing_parts": [],
+  "ignored_zip_directory_entries": "空目录记录不属于OOXML部件，python-docx省略此类ZIP占位不丢失文件"
+}
