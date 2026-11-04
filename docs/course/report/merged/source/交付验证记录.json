@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-04",
+  "revision": "正式项目表述",
+  "plan_version": "MERGE-BUDGET-02 计划预算",
+  "pages": 79,
+  "body_han_characters": 10201,
+  "member_order": [
+    "李健博",
+    "许祖嘉",
+    "常诚",
+    "刘子轩",
+    "侯永森",
+    "庞佳泽",
+    "余智皓",
+    "严翊航"
+  ],
+  "toc": "51项目录与最终PDF页码一致",
+  "render": "全页渲染；修订页面已检查，其他页面与前版图像一致",
+  "checks": "DOCX、PDF、工作簿文字扫描，预算和资源复算、字体及页边距检查通过",
+  "original_inputs": "41份报告材料指纹与归档一致（不含系统元数据）",
+  "artifacts": {
+    "SimpleCADforDSH课程报告初稿.docx": "3ff44ae1c7c14793b3704c35a8224729255700bf3132c8fbab774f87f435e7b9",
+    "SimpleCADforDSH课程报告初稿.pdf": "328504bd2a00866f85a854a2325ba98f02706054b4780cc1d8863d96032d9b7c",
+    "SimpleCADforDSH计划与预算.xlsx": "a2180b3f0329228eb84b37513db35084d474d67d2a1e2f4892bbe54573df0573"
+  }
+}

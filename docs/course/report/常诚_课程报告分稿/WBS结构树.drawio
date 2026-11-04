@@ -1,0 +1,321 @@
+<mxfile host="Electron">
+  <diagram name="第 1 页" id="Cs2dX3bOjYLj6411WKGY">
+    <mxGraphModel dx="1919" dy="1352" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="x9buYtKWlR_RdSAWF03g-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="SimpleCADforDSH" vertex="1">
+          <mxGeometry height="60" width="120" x="20" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-2" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-1" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.043" as="geometry">
+            <Array as="points">
+              <mxPoint x="160" y="240" />
+              <mxPoint x="250" y="190" />
+            </Array>
+            <mxPoint x="390" y="360" as="sourcePoint" />
+            <mxPoint x="340" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-4" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-6" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-7" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="490" y="110" />
+            </Array>
+            <mxPoint x="470" y="170" as="sourcePoint" />
+            <mxPoint x="580" y="70" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-6" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1 项目管理与过程资料" vertex="1">
+          <mxGeometry height="30" width="130" x="340" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-7" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1.1 需求、范围与验收基准" vertex="1">
+          <mxGeometry height="30" width="150" x="560" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-8" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-6" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-9" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="520" y="130" />
+            </Array>
+            <mxPoint x="550" y="288" as="sourcePoint" />
+            <mxPoint x="580" y="90" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-9" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1.2 WBS、任务看板与进度跟踪" vertex="1">
+          <mxGeometry height="30" width="170" x="560" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-10" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-6" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-11" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="530" y="180" />
+            </Array>
+            <mxPoint x="490" y="235" as="sourcePoint" />
+            <mxPoint x="580" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-11" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1.3 风险与问题管理" vertex="1">
+          <mxGeometry height="30" width="110" x="560" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-12" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;innerLoopWaypoints=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;defaultLabelBackgroundColor=page;" target="x9buYtKWlR_RdSAWF03g-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-13" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1.4 Scrum活动与评审记录" vertex="1">
+          <mxGeometry height="30" width="150" x="560" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-14" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;innerLoopWaypoints=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;defaultLabelBackgroundColor=page;" target="x9buYtKWlR_RdSAWF03g-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-16" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-6" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-13" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="500" y="200" />
+            </Array>
+            <mxPoint x="540" y="285" as="sourcePoint" />
+            <mxPoint x="650" y="215" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-17" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-1" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-18" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.7763" as="geometry">
+            <Array as="points">
+              <mxPoint x="200" y="310" />
+              <mxPoint x="240" y="270" />
+            </Array>
+            <mxPoint x="550" y="360" as="sourcePoint" />
+            <mxPoint x="340" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-18" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="2 迭代1：生成、检索与QA成果" vertex="1">
+          <mxGeometry height="30" width="170" x="340" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-20" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="2.1 首迭代范围与接口准备" vertex="1">
+          <mxGeometry height="30" width="150" x="580" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-21" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-18" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-20" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="520" y="230" />
+            </Array>
+            <mxPoint x="550" y="385" as="sourcePoint" />
+            <mxPoint x="660" y="315" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-22" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="2.2多模态CAD生成与参数展示" vertex="1">
+          <mxGeometry height="30" width="170" x="580" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-23" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-18" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-22" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="550" y="250" />
+            </Array>
+            <mxPoint x="600" y="455" as="sourcePoint" />
+            <mxPoint x="710" y="385" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-24" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="2.3CAD样例库与检索索引" vertex="1">
+          <mxGeometry height="30" width="150" x="580" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-25" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-18" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-24" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="300" />
+            </Array>
+            <mxPoint x="540" y="405" as="sourcePoint" />
+            <mxPoint x="650" y="335" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-26" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="2.4 多模态CAD检索与详情展示" vertex="1">
+          <mxGeometry height="30" width="170" x="580" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-27" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="2.5 模型几何与尺寸QA" vertex="1">
+          <mxGeometry height="30" width="130" x="580" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-28" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="2.6 首迭代联调与验收" vertex="1">
+          <mxGeometry height="30" width="120" x="580" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-29" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-18" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-26" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="330" />
+            </Array>
+            <mxPoint x="510" y="405" as="sourcePoint" />
+            <mxPoint x="620" y="335" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-30" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-18" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-27" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="530" y="350" />
+            </Array>
+            <mxPoint x="440" y="425" as="sourcePoint" />
+            <mxPoint x="550" y="355" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-31" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-18" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-28" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="520" y="370" />
+            </Array>
+            <mxPoint x="440" y="455" as="sourcePoint" />
+            <mxPoint x="550" y="385" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-32" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-1" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-33" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="210" y="500" />
+            </Array>
+            <mxPoint x="160" y="394" as="sourcePoint" />
+            <mxPoint x="320" y="510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-33" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="3. 迭代2：参数编辑与基础CAD操作成果" vertex="1">
+          <mxGeometry height="30" width="220" x="320" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-34" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="3.1 参数编辑与模型重建" vertex="1">
+          <mxGeometry height="30" width="140" x="630" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-35" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="3.2 矩形轮廓与实体拉伸" vertex="1">
+          <mxGeometry height="30" width="140" x="630" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-36" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="3.3 贯穿孔与布尔并集" vertex="1">
+          <mxGeometry height="30" width="120" x="635" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-37" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="3.4 边圆角与边倒角" vertex="1">
+          <mxGeometry height="30" width="110" x="635" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-38" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="3.5 撤销与模型树" vertex="1">
+          <mxGeometry height="30" width="110" x="630" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-39" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="3.6 编辑功能联调与验收" vertex="1">
+          <mxGeometry height="30" width="140" x="635" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-40" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-33" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-34" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="550" y="460" />
+            </Array>
+            <mxPoint x="560" y="645" as="sourcePoint" />
+            <mxPoint x="670" y="575" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-41" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-33" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-35" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="580" y="475" />
+            </Array>
+            <mxPoint x="440" y="665" as="sourcePoint" />
+            <mxPoint x="550" y="595" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-42" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-33" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-36" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="590" y="500" />
+            </Array>
+            <mxPoint x="480" y="655" as="sourcePoint" />
+            <mxPoint x="590" y="585" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-43" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-33" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-37" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="570" y="545" />
+            </Array>
+            <mxPoint x="480" y="665" as="sourcePoint" />
+            <mxPoint x="590" y="595" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-44" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-33" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-38" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="570" y="570" />
+            </Array>
+            <mxPoint x="470" y="675" as="sourcePoint" />
+            <mxPoint x="580" y="605" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-45" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-33" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-39" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="560" y="590" />
+            </Array>
+            <mxPoint x="390" y="695" as="sourcePoint" />
+            <mxPoint x="500" y="625" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-46" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-1" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-47" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.1263" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="630" />
+            </Array>
+            <mxPoint x="150" y="705" as="sourcePoint" />
+            <mxPoint x="290" y="700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-47" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="4 迭代3： 导出、演示与项目交付成果" vertex="1">
+          <mxGeometry height="30" width="210" x="320" y="690" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-48" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="4.1 STEP导出与兼容性验证" vertex="1">
+          <mxGeometry height="30" width="150" x="635" y="670" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-49" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="4.2 STL与GLB导出" vertex="1">
+          <mxGeometry height="30" width="110" x="635" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-50" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="4.3 全流程回归与缺陷关闭" vertex="1">
+          <mxGeometry height="30" width="150" x="635" y="730" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-51" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="4.4 发布与固定剧本演示" vertex="1">
+          <mxGeometry height="30" width="140" x="635" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-52" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="4.5 最终验收与资料归档" vertex="1">
+          <mxGeometry height="30" width="140" x="630" y="790" as="geometry" />
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-55" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-47" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-48" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="560" y="675" />
+            </Array>
+            <mxPoint x="500" y="835" as="sourcePoint" />
+            <mxPoint x="610" y="765" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-56" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-47" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-49" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="590" y="690" />
+            </Array>
+            <mxPoint x="340" y="885" as="sourcePoint" />
+            <mxPoint x="450" y="815" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-57" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-47" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-50" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="610" y="705" />
+            </Array>
+            <mxPoint x="400" y="855" as="sourcePoint" />
+            <mxPoint x="510" y="785" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-58" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-47" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-51" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="600" y="730" />
+            </Array>
+            <mxPoint x="390" y="855" as="sourcePoint" />
+            <mxPoint x="500" y="785" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x9buYtKWlR_RdSAWF03g-59" edge="1" parent="1" source="x9buYtKWlR_RdSAWF03g-47" style="curved=1;curveGeometry=1;endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="x9buYtKWlR_RdSAWF03g-52" value="">
+          <mxGeometry height="50" relative="1" width="50" x="0.3947" as="geometry">
+            <Array as="points">
+              <mxPoint x="560" y="780" />
+            </Array>
+            <mxPoint x="320" y="875" as="sourcePoint" />
+            <mxPoint x="430" y="805" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
